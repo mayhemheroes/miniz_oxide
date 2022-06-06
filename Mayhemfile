@@ -1,9 +1,9 @@
-image: ghcr.io/ennamarie19/openslide-fuzz:latest
-project: openslide
-target: openslide-fuzz
+image: ghcr.io/ennamarie19/miniz-oxide-fuzz:latest
+project: miniz-oxide
+target: inflate-fuzz
 testsuite:
-    - file://test/corpus/inflate_nonwrapping
+    - file://fuzz/seeds/minimal
 
 cmds:
-    - cmd: /fuzz
+    - cmd: /inflate_nonwrapping
       libfuzzer: true
