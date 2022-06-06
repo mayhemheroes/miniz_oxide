@@ -1,0 +1,9 @@
+image: ghcr.io/ennamarie19/openslide-fuzz:latest
+project: openslide
+target: openslide-fuzz
+testsuite:
+    - file://test/corpus/inflate_nonwrapping
+
+cmds:
+    - cmd: /fuzz
+      libfuzzer: true
