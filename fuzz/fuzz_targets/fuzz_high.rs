@@ -9,11 +9,11 @@ extern crate libc;
 use libc::*;
 
 extern "C" {
-    pub fn c_mz_compress(dest: *mut u8,
+    pub fn mz_compress(dest: *mut u8,
                          dest_len: *mut c_ulong,
                          source: *const u8,
                          source_len: c_ulong) -> c_int;
-    pub fn c_mz_uncompress(dest: *mut u8,
+    pub fn mz_uncompress(dest: *mut u8,
                            dest_len: *mut c_ulong,
                            source: *const u8,
                            source_len: c_ulong) -> c_int;
@@ -43,7 +43,7 @@ fuzz_target!(|data: &[u8]| {
                                  uncompressed_size)
     };
     let c_res = unsafe {
-        c_mz_compress(c_compressed_buf.as_mut_ptr(),
+        mz_compress(c_compressed_buf.as_mut_ptr(),
                       &mut c_compressed_size,
                       s.as_mut_ptr(),
                       uncompressed_size)
@@ -61,7 +61,7 @@ fuzz_target!(|data: &[u8]| {
                                    rust_compressed_size)
     };
     let c_res = unsafe {
-        c_mz_uncompress(c_decompressed_buf.as_mut_ptr(),
+        mz_uncompress(c_decompressed_buf.as_mut_ptr(),
                         &mut c_decompressed_size,
                         c_compressed_buf.as_mut_ptr(),
                         c_compressed_size)
